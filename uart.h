@@ -1,8 +1,8 @@
 /*
- * adc_uart.h
+ * uart.h
  *
- *  Created on: Oct 9, 2017
- *      Author: Keifer Bowen
+ *  Created on: April 17,2018
+ *      Author: Keifer Bowen, Jake Perez
  *
  *  This file makes all the function declarations for our uart.h file.
  *  These functions are used extensively in this lab.
