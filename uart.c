@@ -1,8 +1,8 @@
 /*
- * adc_uart.c
+ * uart.c
  *
- *  Created on: Oct 9, 2017
- *      Author: Keifer Bowen
+ *  Created on: April 17,2018
+ *      Author: Keifer Bowen, Jake Perez
  *
  *  This code has been very slightly modified from lab 3, but has
  *  mostly remained the same. This code configures our UART for
