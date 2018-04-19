@@ -11,10 +11,6 @@
 #define STCVR *(uint32_t *)0xE000E018
 #define STCSR *(uint32_t *)0xE000E010
 
-extern volatile uint8_t warmup;
-extern volatile uint8_t take_out;
-extern volatile uint16_t conv_flag;
-
 // function definition for timer A configuration
 void timer_a0_config(){
     TIMER_A0->R = 0;                             // Reset count to zero when we configure timer
@@ -25,30 +21,12 @@ void timer_a0_config(){
 
      //Enable Interrupts in the NVIC
     NVIC_EnableIRQ(TA0_0_IRQn);
-    __NVIC_SetPriority(TA0_0_IRQn, 1);
+    //__NVIC_SetPriority(TA0_0_IRQn, 1);
 }
 
 // function definition for the timer interrupt
 void TA0_0_IRQHandler() {
     __disable_irq();
-    if(TIMER_A0->CCTL[0] & TIMER_A_CCTLN_CCIFG) {
-        TIMER_A0->CCTL[0] &= ~(TIMER_A_CCTLN_CCIFG);
-        // toggle blue LED during warmup Phase
-        if (!warmup) {
-            // toggle BLue LED
-            P2->OUT &= ~(0x01);
-            P2->OUT &= ~(0x02);
-            P2->OUT ^= 0x04;
-        }
-
-        // blinking red LED when it needs to be
-        // taken out
-        if(take_out) {
-            P2->OUT ^= 0x01;
-            P2->OUT &= ~(0x02);
-            P2->OUT &= ~(0x04);
-        }
-    }
     __enable_irq();
 }
 

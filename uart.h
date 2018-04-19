@@ -14,7 +14,7 @@
 #define UART_H_
 
 // configure our UART function declaration
-void UART_Configure(void);
+void UART_Config(void);
 
 // set up function for sending a single byte of data, declaration
 void UART_send_n(uint8_t * data_array, uint32_t length);
