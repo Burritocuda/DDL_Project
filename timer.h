@@ -17,6 +17,4 @@ void TA0_0_IRQHandler(void);
 //function definition for setting up the systic timer
 void systic_config(void);
 
-
-
 #endif /* TIMER_H_ */
