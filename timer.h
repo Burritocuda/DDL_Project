@@ -11,6 +11,9 @@
 /* Function declaration for timer A congiguration function */
 void timer_a0_config(void);
 
+/* Function declaration for timer A configuration function for PWM */
+void timer_a0_pwm_config();
+
 /* Function declaration for timer A handler, more details need to be added */
 void TA0_0_IRQHandler(void);
 

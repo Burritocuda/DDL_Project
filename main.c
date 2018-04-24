@@ -13,6 +13,7 @@ void main(void)
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 	UART_Config_UCA0(); // configure UART
 	UART_Config_UCA2(); // configure UART
+	timer_a0_pwm_config(); // configure pwm timer mode
 	GPIO_Config();      // configure GPIO PINS
 	__enable_irq();     // global enable interrupts
 	uint32_t i;
