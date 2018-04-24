@@ -5,7 +5,10 @@
 #include "uart.h"
 #include "GPIO.h"
 #include "timer.h"
+#include "Decoder.h"
 
+extern volatile uint8_t * data_array;
+extern volatile uint8_t index;
 volatile uint32_t cardDetect = 0;
 
 void main(void)
@@ -17,10 +20,14 @@ void main(void)
 	__enable_irq();     // global enable interrupts
 	uint32_t i;
 
-	// call coniguration code here
+	// call configuration code here
 
 	while(1)
 	{
+	  if(index>=5){
+	      index=0;
+	      decoder(data_array);
+	    }
 	    // toggle RED led
 	    if (cardDetect)
 	    {
@@ -28,7 +35,5 @@ void main(void)
 	        for(i = 0; i < 10000; i++); // delay loop
 	        cardDetect = 0;
 	    }
-
-
 	}
 }

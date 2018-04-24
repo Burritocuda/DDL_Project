@@ -9,7 +9,9 @@ CMD_SRCS += \
 ../msp432p401r.cmd 
 
 C_SRCS += \
+../Decoder.c \
 ../GPIO.c \
+../bluetoothOn.c \
 ../main.c \
 ../startup_msp432p401r_ccs.c \
 ../system_msp432p401r.c \
@@ -17,7 +19,9 @@ C_SRCS += \
 ../uart.c 
 
 C_DEPS += \
+./Decoder.d \
 ./GPIO.d \
+./bluetoothOn.d \
 ./main.d \
 ./startup_msp432p401r_ccs.d \
 ./system_msp432p401r.d \
@@ -25,7 +29,9 @@ C_DEPS += \
 ./uart.d 
 
 OBJS += \
+./Decoder.obj \
 ./GPIO.obj \
+./bluetoothOn.obj \
 ./main.obj \
 ./startup_msp432p401r_ccs.obj \
 ./system_msp432p401r.obj \
@@ -33,7 +39,9 @@ OBJS += \
 ./uart.obj 
 
 OBJS__QUOTED += \
+"Decoder.obj" \
 "GPIO.obj" \
+"bluetoothOn.obj" \
 "main.obj" \
 "startup_msp432p401r_ccs.obj" \
 "system_msp432p401r.obj" \
@@ -41,7 +49,9 @@ OBJS__QUOTED += \
 "uart.obj" 
 
 C_DEPS__QUOTED += \
+"Decoder.d" \
 "GPIO.d" \
+"bluetoothOn.d" \
 "main.d" \
 "startup_msp432p401r_ccs.d" \
 "system_msp432p401r.d" \
@@ -49,7 +59,9 @@ C_DEPS__QUOTED += \
 "uart.d" 
 
 C_SRCS__QUOTED += \
+"../Decoder.c" \
 "../GPIO.c" \
+"../bluetoothOn.c" \
 "../main.c" \
 "../startup_msp432p401r_ccs.c" \
 "../system_msp432p401r.c" \
