@@ -12,6 +12,8 @@
 #define STCSR *(uint32_t *)0xE000E010
 
 // function definition for timer A configuration
+
+// changing this configuration for PWM for controlling a servo
 void timer_a0_config(){
     TIMER_A0->R = 0;                             // Reset count to zero when we configure timer
     TIMER_A0->CTL = TIMER_A_CTL_MC__UP | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_IE;   // SMCLK, Up mode, this bitmask sets upmode

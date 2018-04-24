@@ -13,8 +13,11 @@
 #ifndef UART_H_
 #define UART_H_
 
-// configure our UART function declaration
-void UART_Config(void);
+// configure our UART function declaration, port 2
+void UART_Config_UCA2(void);
+
+// configure our UART function, port 0
+void UART_Config_UCA0(void);
 
 // set up function for sending a single byte of data, declaration
 void UART_send_n(uint8_t * data_array, uint32_t length);
