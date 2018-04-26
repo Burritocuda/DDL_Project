@@ -7,7 +7,6 @@
 #include "timer.h"
 #include "Decoder.h"
 
-extern volatile uint8_t * data_array;
 extern volatile uint8_t index;
 volatile uint32_t cardDetect = 0;
 
@@ -24,7 +23,7 @@ void main(void)
 
 	while(1)
 	{
-	   if(index >= 5)
+	   if(index > 6)
 	   {
 	      index = 0;
 	      decoder();

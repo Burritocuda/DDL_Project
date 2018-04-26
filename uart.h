@@ -28,4 +28,5 @@ void UART_send_n(uint8_t * data_array, uint32_t length);
  */
 void UART_send_byte(uint8_t data);
 
+void add_item_to_array(uint8_t store_data);
 #endif /* UART_H_ */
