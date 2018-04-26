@@ -29,18 +29,21 @@ void timer_a0_config()
 void timer_a0_pwm_config()
 {
     // configure pin 2.4 as the output for our PWM
-    P2->SEL0 &= ~BIT4;  // set to primary function mode, for PWM
-    P2->SEL1 &= ~BIT4;
-    TIMER_A0->R = 0; // reset time count to configure
+    P2->SEL0 |= BIT6;  // set to primary function mode, for PWM
+    P2->SEL1 &= ~BIT6;
+    P2->DIR |= BIT6;
+    //TIMER_A0->R = 0; // reset time count to configure
     // up mode, smclk, clock divider 1, timer A interupt enable
-    TIMER_A0->CTL = TIMER_A_CTL_MC__UP | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_ID_0  | TIMER_A_CTL_IE;
+    TIMER_A0->CTL = TIMER_A_CTL_MC__UP | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_ID_1;
     // we have to use ccr1 and cctl1 becuase the PWM mode does not work on ccr0 and cctl0
     // according to the documentation
-    TIMER_A0->CCR[1] = 3200; // value we want to count too
+    TIMER_A0->CCR[0] = 8000;
+    TIMER_A0->CCR[3]= 4000; // value we want to count too
     // toggle/reset mode (PWM), capture capare interrupt enable
-    TIMER_A0->CCTL[1] |= TIMER_A_CCTLN_OUTMOD_2 | TIMER_A_CCTLN_CCIE;
+    TIMER_A0->CCTL[0] = TIMER_A_CCTLN_OUTMOD_7;
+    TIMER_A0->CCTL[3] = TIMER_A_CCTLN_OUTMOD_7;
     //Enable Interrupts in the NVIC
-    NVIC_EnableIRQ(TA0_0_IRQn);
+    //NVIC_EnableIRQ(TA0_0_IRQn);
 }
 
 // function definition for the timer interrupt
