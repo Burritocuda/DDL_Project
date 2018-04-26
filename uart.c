@@ -23,8 +23,8 @@
 #include <uart.h>
 
 extern volatile uint32_t cardDetect;
-volatile uint8_t * data_array[6];
-volatile uint8_t index=0;
+volatile uint8_t data_array[6];
+volatile uint8_t index = 0;
 uint8_t data;
 
 // make some macros for configuring our BAUD rate
@@ -98,6 +98,7 @@ void UART_send_n(uint8_t * data_array, uint32_t length) {
         {
             UART_send_byte(data_array[i]);
         }
+
         else
             // otherwise dont increment past the char we didn't transmit
             i--;
@@ -116,12 +117,13 @@ void EUSCIA2_IRQHandler(void)
     if (EUSCI_A2->IFG & EUSCI_A_IFG_RXIFG)
     {
         // if we receive info on UART, clear the IRQ flag and process the interrupt
-        EUSCI_A2->IFG &= ~EUSCI_A_IFG_RXIFG;
+        //EUSCI_A2->IFG &= ~EUSCI_A_IFG_RXIFG;
         data = EUSCI_A2->RXBUF; // receive data from rx buffer
         data_array[index] = data;
         index++;
-       UART_send_byte(data);  // send out data to confirm its valid with realterm
+        //UART_send_byte(data);  // send out data to confirm its valid with realterm
         cardDetect = 1;
+        //__disable_irq();
     }
 }
 

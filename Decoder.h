@@ -10,6 +10,6 @@
 #ifndef DECODER_H_
 #define DECODER_H_
 
-void decoder(uint8_t * data_array);
+void decoder(void);
 
 #endif /* DECODER_H_ */

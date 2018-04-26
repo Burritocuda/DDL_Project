@@ -24,9 +24,10 @@ void main(void)
 
 	while(1)
 	{
-	  if(index>=5){
-	      index=0;
-	      decoder(data_array);
+	   if(index >= 5)
+	   {
+	      index = 0;
+	      decoder();
 	    }
 	    // toggle RED led
 	    if (cardDetect)

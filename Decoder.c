@@ -9,28 +9,29 @@
 #include <stdint.h>
 #include <stdio.h>
 
-
+// 0x98,0xA0,0x98,0x9C,0x87,0xE0
 extern volatile uint8_t * data_array;
+uint8_t data_1[6] = {0x98,0xA0,0x98,0x9C,0x87,0xE0};
+uint8_t i=0;
+uint8_t j;
+uint8_t holder;
+void decoder(void)
+{
+    __disable_irq();
+    for(i = 0; i < 6; i++)
+    {
+       // holder=data_array[i];
+        if(data_array[i] == data_1[i])
+        {
+            P1->OUT ^= BIT0;
+        }
+    }
 
-
-
-void decoder(volatile uint8_t * data_array){
-// if(data_array[0]==0x98){
-//  if(data_array[1]==0xA0){
-//      if(data_array[2]==0x8D){
-//          if(data_array[3]==0x87){
-//              if(data_array[4]==0xe0){
-//                  P1->OUT ^= BIT0;
-//              }
-//          }
-//      }
-//  }
-//}
-// data_array[0]=0;
-// data_array[1]=0;
-// data_array[2]=0;
-// data_array[3]=0;
-// data_array[4]=0;
-// data_array[5]=0;
+    //reset values to zero
+    for(j = 0; j < 6; j++)
+    {
+        data_array[j] = 0x00;
+    }
+    __enable_irq();
  return;
 }
