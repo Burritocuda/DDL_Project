@@ -10,7 +10,9 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./Decoder.obj" \
 "./GPIO.obj" \
+"./bluetoothOn.obj" \
 "./main.obj" \
 "./startup_msp432p401r_ccs.obj" \
 "./system_msp432p401r.obj" \
@@ -158,8 +160,8 @@ DDL_Project.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "GPIO.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "timer.obj" "uart.obj" 
-	-$(RM) "GPIO.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "timer.d" "uart.d" 
+	-$(RM) "Decoder.obj" "GPIO.obj" "bluetoothOn.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "timer.obj" "uart.obj" 
+	-$(RM) "Decoder.d" "GPIO.d" "bluetoothOn.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "timer.d" "uart.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

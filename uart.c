@@ -23,6 +23,9 @@
 #include <uart.h>
 
 extern volatile uint32_t cardDetect;
+uint8_t * data_array[16];
+uint8_t index = 0;
+uint8_t data;
 
 // make some macros for configuring our BAUD rate
 // #define CR (0x80) // for 115200
@@ -39,7 +42,7 @@ void UART_Config_UCA2() {
     P3SEL0 |= BIT2 | BIT3;  // configure pins 3.2 and 3.3 to primary output mode, UART UCAB
     P3SEL1 &= ~(BIT2 | BIT3);
     //UCA2CTLW0 |= EUSCI_A_CTLW0_SSEL__SMCLK; // for 115200 BR
-    UCA2CTLW0 |= EUSCI_A_CTLW0_SSEL__ACLK; // Aux clk 32.768khz for 9600 BR
+    UCA2CTLW0 |= EUSCI_B_CTLW0_SSEL__SMCLK; // Aux clk 32.768khz for 9600 BR
     UCA2CTLW0 &= ~EUSCI_A_CTLW0_PEN;   // parity disabled
     UCA2CTLW0 &= ~EUSCI_A_CTLW0_MODE0; // set to uart mode
     UCA2CTLW0 &= ~EUSCI_A_CTLW0_MODE1;
@@ -48,9 +51,10 @@ void UART_Config_UCA2() {
     UCA2CTLW0 &= ~EUSCI_A_CTLW0_SPB;      // one stop bit one start bit is default
     // this is where we are with the UART config
     //UCA2MCTLW = 0xB5A1; // this is as bleow but for 115200 BR
-    UCA2MCTLW = 0x0092; // this includes BRS and OS16 for 9600 BR
-    UCA2BR0 = br0;     // set baud rate
-    UCA2BR1 = br1;
+    UCA2MCTLW = (2 << EUSCI_A_MCTLW_BRF_OFS) |EUSCI_A_MCTLW_OS16; // this includes BRS and OS16 for 9600 BR
+    //UCA2BR0 = br0;     // set baud rate
+    //UCA2BR1 = br1;
+    EUSCI_A2->BRW = 78;
     UCA2CTLW0 &= ~UCSWRST; // initialize eUSCI
     // configure interrupts for RX and TX
     EUSCI_A2->IE |= EUSCI_A_IE_RXIE;
@@ -65,7 +69,7 @@ void UART_Config_UCA0(void)
     P1SEL0 |= BIT2 | BIT3;  // configure pins 1.2 and 1.3 to primary output mode, UART UCAB
     P1SEL1 &= ~(BIT2 | BIT3);
     //UCA2CTLW0 |= EUSCI_A_CTLW0_SSEL__SMCLK; // for 115200 BR
-    UCA0CTLW0 |= EUSCI_A_CTLW0_SSEL__ACLK; // Aux clk 32.768khz for 9600 BR
+    UCA0CTLW0 |= EUSCI_B_CTLW0_SSEL__SMCLK; // Aux clk 32.768khz for 9600 BR
     UCA0CTLW0 &= ~EUSCI_A_CTLW0_PEN;   // parity disabled
     UCA0CTLW0 &= ~EUSCI_A_CTLW0_MODE0; // set to uart mode
     UCA0CTLW0 &= ~EUSCI_A_CTLW0_MODE1;
@@ -74,9 +78,10 @@ void UART_Config_UCA0(void)
     UCA0CTLW0 &= ~EUSCI_A_CTLW0_SPB;      // one stop bit one start bit is default
     // this is where we are with the UART config
     //UCA2MCTLW = 0xB5A1; // this is as bleow but for 115200 BR
-    UCA0MCTLW = 0x0092; // this includes BRS and OS16 for 9600 BR
-    UCA0BR0 = br0;     // set baud rate
-    UCA0BR1 = br1;
+    UCA0MCTLW = (2 << EUSCI_A_MCTLW_BRF_OFS) |EUSCI_A_MCTLW_OS16; // this includes BRS and OS16 for 9600 BR
+    //UCA0BR0 = br0;     // set baud rate
+    //UCA0BR1 = br1;
+    EUSCI_A0->BRW = 78;
     UCA0CTLW0 &= ~UCSWRST; // initialize eUSCI
     // configure interrupts for RX and TX
     EUSCI_A0->IE |= EUSCI_A_IE_RXIE;
@@ -95,6 +100,7 @@ void UART_send_n(uint8_t * data_array, uint32_t length) {
         {
             UART_send_byte(data_array[i]);
         }
+
         else
             // otherwise dont increment past the char we didn't transmit
             i--;
@@ -110,16 +116,36 @@ void UART_send_byte(uint8_t data)
 
 void EUSCIA2_IRQHandler(void)
 {
+
     if (EUSCI_A2->IFG & EUSCI_A_IFG_RXIFG)
     {
-        // if we receive info on UART, clear the IRQ flag and process the interrupt
+        __disable_irq();
         EUSCI_A2->IFG &= ~EUSCI_A_IFG_RXIFG;
-        uint8_t data = EUSCI_A2->RXBUF; // receive data from rx buffer
+        // if we receive info on UART, clear the IRQ flag and process the interrupt
+        //EUSCI_A2->IFG &= ~EUSCI_A_IFG_RXIFG;
+        data = EUSCI_A2->RXBUF; // receive data from rx buffer
+        //data_array[index] = data;
+        //index++;
+        add_item_to_array(data);
         UART_send_byte(data);  // send out data to confirm its valid with realterm
-        cardDetect = 1;
+        //UART_send_byte(0x0D);
+        //UART_send_byte(0xFF);
+        //cardDetect = 1;
+        //__disable_irq();
+        __enable_irq();
     }
-
 }
 
+void add_item_to_array(uint8_t store_data)
+{
+    uint8_t holder=0;
+    // store the data in the array
+    holder = store_data;
+    data_array[index] = holder;
+   // data_array[index]=0;
+    //increment index
+    index++;
+    return;
+}
 
 

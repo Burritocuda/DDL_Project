@@ -11,8 +11,12 @@ main.obj: C:/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h
 main.obj: C:/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 main.obj: C:/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h
 main.obj: ../uart.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdio.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/linkage.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdarg.h
 main.obj: ../GPIO.h
 main.obj: ../timer.h
+main.obj: ../Decoder.h
 
 ../main.c: 
 C:/ti/ccsv7/ccs_base/arm/include/msp.h: 
@@ -25,5 +29,9 @@ C:/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h: 
 ../uart.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdio.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdarg.h: 
 ../GPIO.h: 
 ../timer.h: 
+../Decoder.h: 
