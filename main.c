@@ -22,6 +22,7 @@ void main(void)
     CS->KEY = 0;
 	UART_Config_UCA0(); // configure UART
 	UART_Config_UCA2(); // configure UART
+	timer_a0_pwm_config();
 	GPIO_Config();      // configure GPIO PINS
 	__enable_irq();     // global enable interrupts
 	uint32_t i;
