@@ -10,6 +10,7 @@ timer.obj: C:/ti/ccsv7/ccs_base/arm/include/msp432p401r_classic.h
 timer.obj: C:/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h
 timer.obj: C:/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 timer.obj: C:/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h
+timer.obj: ../timer.h
 
 ../timer.c: 
 C:/ti/ccsv7/ccs_base/arm/include/msp.h: 
@@ -21,3 +22,4 @@ C:/ti/ccsv7/ccs_base/arm/include/msp432p401r_classic.h:
 C:/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h: 
 C:/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h: 
+../timer.h: 

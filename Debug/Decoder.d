@@ -13,6 +13,7 @@ Decoder.obj: C:/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h
 Decoder.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdio.h
 Decoder.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/linkage.h
 Decoder.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdarg.h
+Decoder.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/string.h
 
 ../Decoder.c: 
 C:/ti/ccsv7/ccs_base/arm/include/msp.h: 
@@ -27,3 +28,4 @@ C:/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h:
 C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdio.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/linkage.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include/string.h: 

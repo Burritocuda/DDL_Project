@@ -127,10 +127,10 @@ void EUSCIA2_IRQHandler(void)
         //data_array[index] = data;
         //index++;
         add_item_to_array(data);
-        UART_send_byte(data);  // send out data to confirm its valid with realterm
+     //   UART_send_byte(data);  // send out data to confirm its valid with realterm
         //UART_send_byte(0x0D);
         //UART_send_byte(0xFF);
-        //cardDetect = 1;
+       // cardDetect = 1;
         //__disable_irq();
         __enable_irq();
     }

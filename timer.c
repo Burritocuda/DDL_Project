@@ -6,6 +6,7 @@
  *              Keifer Bowen
  */
 #include "msp.h"
+#include "timer.h"
 
 #define STRVR *(uint32_t *)0xE000E014
 #define STCVR *(uint32_t *)0xE000E018
@@ -28,22 +29,41 @@ void timer_a0_config()
 }
 void timer_a0_pwm_config()
 {
-    // configure pin 2.4 as the output for our PWM
-    P2->SEL0 |= BIT6;  // set to primary function mode, for PWM
-    P2->SEL1 &= ~BIT6;
-    P2->DIR |= BIT6;
     //TIMER_A0->R = 0; // reset time count to configure
     // up mode, smclk, clock divider 1, timer A interupt enable
-    TIMER_A0->CTL = TIMER_A_CTL_MC__UP | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_ID_1;
+    TIMER_A0->CTL = TIMER_A_CTL_MC__UP | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_ID__4  ;
     // we have to use ccr1 and cctl1 becuase the PWM mode does not work on ccr0 and cctl0
     // according to the documentation
-    TIMER_A0->CCR[0] = 30000; // 50HZ
-    TIMER_A0->CCR[3]= 300; // 20% duty cycle
+    TIMER_A0->CCR[0] = 60000; // 50HZ
+    TIMER_A0->CCR[3] = 6400; // 20% duty cycle
     // toggle/reset mode (PWM), capture capare interrupt enable
     TIMER_A0->CCTL[0] = TIMER_A_CCTLN_OUTMOD_7;
     TIMER_A0->CCTL[3] = TIMER_A_CCTLN_OUTMOD_7;
     //Enable Interrupts in the NVIC
     //NVIC_EnableIRQ(TA0_0_IRQn);
+}
+// locked
+void pwm_up()
+{
+    __disable_irq();
+    //timer_a0_pwm_config(3200);
+    TIMER_A0->CCR[3] = 6400;
+    uint32_t i;
+    for(i = 0; i < 100000; i++); // delay loop
+    //timer_a0_pwm_config(100);
+    __enable_irq();
+}
+
+// unlocked
+void pwm_down()
+{
+    __disable_irq();
+    //timer_a0_pwm_config(900);
+    TIMER_A0->CCR[3] = 1800;
+    uint32_t i;
+    for(i = 0; i < 100000; i++); // delay loop
+    //timer_a0_pwm_config(100);
+    __enable_irq();
 }
 
 // function definition for the timer interrupt

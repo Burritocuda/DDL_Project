@@ -19,13 +19,14 @@ void main(void)
     CS->CTL1 = CS_CTL1_SELA_2 |             // Select ACLK = REFO
             CS_CTL1_SELS_3 |                // SMCLK = DCO
             CS_CTL1_SELM_3;                 // MCLK = DCO
+
     CS->KEY = 0;
-	UART_Config_UCA0(); // configure UART
+	UART_Config_UCA0(); // configure UARTs
 	UART_Config_UCA2(); // configure UART
 	timer_a0_pwm_config();
 	GPIO_Config();      // configure GPIO PINS
 	__enable_irq();     // global enable interrupts
-	uint32_t i;
+	//uint32_t i;
 
 	// call configuration code here
 
@@ -33,15 +34,16 @@ void main(void)
 	{
 	   if(index >= 16)
 	   {
+	      cardDetect=1;
 	      index = 0;
 	      decoder();
 	    }
 	    // toggle RED led
-	    if (cardDetect)
-	    {
-	        P1->OUT ^= BIT0;
-	        for(i = 0; i < 10000; i++); // delay loop
-	        cardDetect = 0;
-	    }
+//	    if (cardDetect)
+//	    {
+	       // P1->OUT ^= BIT0;
+	      //  cardDetect = 0;
+
+	    //}
 	}
 }
