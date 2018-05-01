@@ -1,10 +1,4 @@
-/*
- * timer.c
- *
- *  Created on: Sep 11, 2017
- *      Author: Thomas Flynn
- *              Keifer Bowen
- */
+
 #include "msp.h"
 #include "timer.h"
 
@@ -15,6 +9,9 @@
 // function definition for timer A configuration
 
 // changing this configuration for PWM for controlling a servo
+uint8_t status=1;
+
+
 void timer_a0_config()
 {
     TIMER_A0->R = 0;                             // Reset count to zero when we configure timer
@@ -52,6 +49,7 @@ void pwm_up()
     for(i = 0; i < 100000; i++); // delay loop
     //timer_a0_pwm_config(100);
     __enable_irq();
+    status=1; //to tell if the lock is open or not, 1=open
 }
 
 // unlocked
@@ -64,6 +62,7 @@ void pwm_down()
     for(i = 0; i < 100000; i++); // delay loop
     //timer_a0_pwm_config(100);
     __enable_irq();
+    status=0;//closed
 }
 
 // function definition for the timer interrupt

@@ -23,6 +23,7 @@
 #include <uart.h>
 
 extern volatile uint32_t cardDetect;
+uint8_t response = '0';
 uint8_t * data_array[16];
 uint8_t index = 0;
 uint8_t data;
@@ -112,6 +113,15 @@ void UART_send_byte(uint8_t data)
     while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
     //send data if flag is ready
     EUSCI_A0->TXBUF = data;
+}
+
+void EUSCIA0_IRQHandler(void){
+    if (EUSCI_A0->IFG & EUSCI_A_IFG_RXIFG){
+        __disable_irq();
+        EUSCI_A0->IFG &= ~EUSCI_A_IFG_RXIFG;
+        response = EUSCI_A0->RXBUF;
+        __enable_irq();
+    }
 }
 
 void EUSCIA2_IRQHandler(void)
