@@ -23,7 +23,7 @@
 #include <uart.h>
 
 extern volatile uint32_t cardDetect;
-uint8_t response;
+uint8_t response = '0';
 uint8_t * data_array[16];
 uint8_t index = 0;
 uint8_t data;

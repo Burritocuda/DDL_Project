@@ -1,10 +1,4 @@
-/*
- * timer.c
- *
- *  Created on: Sep 11, 2017
- *      Author: Thomas Flynn
- *              Keifer Bowen
- */
+
 #include "msp.h"
 #include "timer.h"
 
@@ -15,7 +9,7 @@
 // function definition for timer A configuration
 
 // changing this configuration for PWM for controlling a servo
-uint8_t status=0;
+uint8_t status=1;
 
 
 void timer_a0_config()
