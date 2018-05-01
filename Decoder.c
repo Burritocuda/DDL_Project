@@ -11,7 +11,8 @@
 #include "string.h"
 
 extern volatile uint8_t * data_array[16];
-extern int status;
+extern uint8_t response;
+extern uint8_t status;
 uint8_t enable=1;//lock enable disable parameter
 uint8_t toggle = 0;
 uint8_t user_1[16] = {0x02,0x31,0x44,0x30,0x30,0x41,0x41,0x42,0x30,0x31,0x43,0x31,0x42,0x0D,0x0A,0x03};
@@ -85,7 +86,7 @@ void decoder(void)
     else if(m==15){
         UART_send_n("Master access granted\n", strlen("Master access granted\n"));
         UART_send_n("1. Lock Status\n2. Lock\n3. Unlock\n4. Lock Ready\n5. Enable Lock\n6. Disable Lock", strlen("1. Lock Status\n2. Lock\n3. Unlock\n4. Lock Ready\n5. Enable Lock\n6. Disable Lock"));
-        if(1){
+        if(response=="1"){
             if(status==1){
                 UART_send_n("Open",strlen("Open"));
             }
@@ -93,7 +94,7 @@ void decoder(void)
                 UART_send_n("Closed",strlen("Closed"));
             }
         }
-        else if(2){
+        else if(response=="2"){
             if(status==0){
                 UART_send_n("Already Locked",strlen("Already Locked"));
             }
@@ -102,7 +103,7 @@ void decoder(void)
                 UART_send_n("unlocked",strlen("unlocked"));
             }
         }
-        else if(3){
+        else if(response=="3"){
             if(status==1){
                           UART_send_n("Already Unlocked",strlen("Already Unlocked"));
                       }
@@ -111,7 +112,7 @@ void decoder(void)
                           UART_send_n("locked",strlen("locked"));
                       }
         }
-        else if(4){
+        else if(response=="4"){
             if(enable==1){
                 UART_send_n("Enabled",strlen("Enabled"));
             }
@@ -119,7 +120,7 @@ void decoder(void)
                 UART_send_n("Disabled",strlen("Disabled"));
             }
         }
-        else if(5){
+        else if(response=="5"){
             if(enable==1){
                 UART_send_n("Already enabled",strlen("Already enabled"));
             }
@@ -128,7 +129,7 @@ void decoder(void)
             UART_send_n("enabled",strlen("enabled"));
             }
         }
-        else if(6){
+        else if(response=="6"){
             if(enable==0){
                         UART_send_n("Already disabled",strlen("Already disabled"));
                     }
