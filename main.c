@@ -11,7 +11,7 @@ extern volatile uint8_t index;
 volatile uint32_t cardDetect = 0;
 
 void main(void)
-{
+ {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
     CS->KEY = CS_KEY_VAL;                   // Unlock CS module for register access
     CS->CTL0 = 0;                           // Reset tuning parameters

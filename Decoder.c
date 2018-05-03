@@ -43,9 +43,12 @@ void decoder(void)
             m++;
         }
     }
-    if(u1==15){
+    if(u1==15)
+    {
         UART_send_n("user_1 accessed device\n", strlen("user_1 accessed device\n"));
-        if(enable ==1){//checks lock ready
+        //checks lock ready
+        if(enable ==1)
+        {
 
             if(toggle == 0)
                   {
@@ -62,7 +65,8 @@ void decoder(void)
                   toggle = toggle%2;
         }
     }
-    else if(u2==15){
+    else if(u2==15)
+    {
         UART_send_n("user_2 accessed device\n", strlen("user_2 accessed device\n"));
         if(enable ==1){//checks lock ready
 
@@ -77,35 +81,34 @@ void decoder(void)
                   {
                       pwm_down();
                   }
-
                   toggle++;
                   toggle = toggle%2;
-
         }
     }
-    else if(m==15){
+    else if(m==15)
+    {
         UART_send_n("Master access granted\n", strlen("Master access granted\n"));
         response ='0';
         UART_send_n("1. Lock Status\n2. Lock\n3. Unlock\n4. Lock Ready\n5. Enable Lock\n6. Disable Lock\n7. Exit\n", strlen("1. Lock Status\n2. Lock\n3. Unlock\n4. Lock Ready\n5. Enable Lock\n6. Disable Lock\n7. Exit\n"));
 
         while(response != '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8')
         {
-        if(response=='1')
+          if(response =='1')
         {
-            if(status==1)
+            if(status==0)
             {
                 UART_send_n("Unlocked\n",strlen("Unlocked\n"));
             }
-            else if(status==0)
+            else if(status==1)
             {
                 UART_send_n("Locked\n",strlen("Locked\n"));
             }
             response ='8';
             //return;
         }
-        else if(response=='2'){
+        else if(response=='3'){
             if(status==0){
-                UART_send_n("Already Locked\n",strlen("Already Locked\n"));
+                UART_send_n("Already Unlocked\n",strlen("Already Unlocked\n"));
             }
             else if(status==1){
                 pwm_down();
@@ -116,9 +119,9 @@ void decoder(void)
             response ='8';
             //return;
         }
-        else if(response=='3'){
+        else if(response=='2'){
             if(status==1){
-                          UART_send_n("Already Unlocked\n",strlen("Already Unlocked\n"));
+                          UART_send_n("Already Locked\n",strlen("Already Locked\n"));
                       }
                       else if(status==0){
                           pwm_up();
@@ -180,6 +183,7 @@ void decoder(void)
         }
         }
     }
+
     else{
         UART_send_n("unknown user tried to access the device\n", strlen("unknown user tried to access the device\n"));
     }

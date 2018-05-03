@@ -32,7 +32,7 @@ void timer_a0_pwm_config()
     // we have to use ccr1 and cctl1 becuase the PWM mode does not work on ccr0 and cctl0
     // according to the documentation
     TIMER_A0->CCR[0] = 60000; // 50HZ
-    TIMER_A0->CCR[3] = 6400; // 20% duty cycle
+    TIMER_A0->CCR[3] = 5000; // 20% duty cycle
     // toggle/reset mode (PWM), capture capare interrupt enable
     TIMER_A0->CCTL[0] = TIMER_A_CCTLN_OUTMOD_7;
     TIMER_A0->CCTL[3] = TIMER_A_CCTLN_OUTMOD_7;
@@ -44,7 +44,8 @@ void pwm_up()
 {
     __disable_irq();
     //timer_a0_pwm_config(3200);
-    TIMER_A0->CCR[3] = 6400;
+    // 6400
+    TIMER_A0->CCR[3] = 5000;
     uint32_t i;
     for(i = 0; i < 100000; i++); // delay loop
     //timer_a0_pwm_config(100);
@@ -57,6 +58,7 @@ void pwm_down()
 {
     __disable_irq();
     //timer_a0_pwm_config(900);
+    // 1800
     TIMER_A0->CCR[3] = 1800;
     uint32_t i;
     for(i = 0; i < 100000; i++); // delay loop

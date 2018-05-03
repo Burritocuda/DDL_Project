@@ -119,6 +119,7 @@ void EUSCIA0_IRQHandler(void){
     if (EUSCI_A0->IFG & EUSCI_A_IFG_RXIFG){
         __disable_irq();
         EUSCI_A0->IFG &= ~EUSCI_A_IFG_RXIFG;
+        response = '0';
         response = EUSCI_A0->RXBUF;
         __enable_irq();
     }

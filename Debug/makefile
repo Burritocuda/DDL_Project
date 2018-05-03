@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := E:/ccs/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+CG_TOOL_ROOT := C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -127,35 +127,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-DDL\ Project.out \
+DDL_Project.out \
 
 EXE_OUTPUTS__QUOTED += \
-"DDL Project.out" \
+"DDL_Project.out" \
 
 BIN_OUTPUTS += \
-DDL\ Project.hex \
+DDL_Project.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"DDL Project.hex" \
+"DDL_Project.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "DDL Project.out"
+	@$(MAKE) --no-print-directory -Onone "DDL_Project.out"
 
 # Tool invocations
-DDL\ Project.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@echo 'Building target: "$@"'
+DDL_Project.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+	@echo 'Building target: $@'
 	@echo 'Invoking: MSP432 Linker'
-	"E:/ccs/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"DDL Project.map" --heap_size=1024 --stack_size=512 -i"E:/ccs/ccsv8/ccs_base/arm/include" -i"E:/ccs/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"E:/ccs/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="DDL Project_linkInfo.xml" --rom_model -o "DDL Project.out" $(ORDERED_OBJS)
-	@echo 'Finished building target: "$@"'
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"DDL_Project.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccsv7/ccs_base/arm/include" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="DDL_Project_linkInfo.xml" --rom_model -o "DDL_Project.out" $(ORDERED_OBJS)
+	@echo 'Finished building target: $@'
 	@echo ' '
 
-DDL\ Project.hex: $(EXE_OUTPUTS)
-	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
+DDL_Project.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: MSP432 Hex Utility'
-	"E:/ccs/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex" --memwidth=8 --romwidth=8 -o "DDL Project.hex" $(EXE_OUTPUTS__QUOTED)
-	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 -o "DDL_Project.hex" $(EXE_OUTPUTS__QUOTED)
+	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
